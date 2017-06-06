@@ -49,61 +49,58 @@ int compare(_Node *p, _Node *q)
 
 }
 
-List *getList1(){
-    List *list = create_list();
+int main(int argc, char *argv[])
+{
+	//list1
+	List list1;
+	create_list(&list1, NULL);
 	Node *node = (Node *)malloc(sizeof(Node));
 	node->str = "d";
-	list_push_back(list, (_Node *)node);
+	list_push_back(&list1, (_Node *)node);
 
     Node *node2 = (Node *)malloc(sizeof(Node));
 	node2->str = "b";
-	list_push_back(list, (_Node *)node2);
+	list_push_back(&list1, (_Node *)node2);
 
     Node *node3 = (Node *)malloc(sizeof(Node));
 	node3->str = "g";
-	list_push_back(list, (_Node *)node3);
+	list_push_back(&list1, (_Node *)node3);
 
     Node *temp = (Node *)malloc(sizeof(Node));
 	temp->str = "a";
-	list_push_back(list, (_Node *)temp);
-	return list;
-}
+	list_push_back(&list1, (_Node *)temp);
 
-List *getList2(){
-    List *list = create_list();
-	Node *node = (Node *)malloc(sizeof(Node));
-	node->str = "w";
-	list_push_back(list, (_Node *)node);
+	//list2
+	List list2;
+	create_list(&list2, NULL);
+	Node *node4 = (Node *)malloc(sizeof(Node));
+	node4->str = "w";
+	list_push_back(&list2, (_Node *)node4);
 
-    Node *node2 = (Node *)malloc(sizeof(Node));
-	node2->str = "x";
-	list_push_back(list, (_Node *)node2);
+    Node *node5 = (Node *)malloc(sizeof(Node));
+	node5->str = "x";
+	list_push_back(&list2, (_Node *)node5);
 
-    Node *node3 = (Node *)malloc(sizeof(Node));
-	node3->str = "y";
-	list_push_back(list, (_Node *)node3);
+    Node *node6 = (Node *)malloc(sizeof(Node));
+	node6->str = "y";
+	list_push_back(&list2, (_Node *)node6);
 
-    Node *temp = (Node *)malloc(sizeof(Node));
-	temp->str = "z";
-	list_push_back(list, (_Node *)temp);
-	return list;
-}
+    Node *temp2 = (Node *)malloc(sizeof(Node));
+	temp2->str = "z";
+	list_push_back(&list2, (_Node *)temp2);
 
-int main(int argc, char *argv[])
-{
-	List *list1 = getList1();
-	List *list2 = getList2();
-	list_print(list1);
-    list_print(list2);
+	//operation
+	list_print(&list1);
+	list_print(&list2);
 
     list_sort(&list1, compare);
     list_sort(&list2, compare);
-    list_print(list1);
-    list_print(list2);
 
+    list_print(&list1);
+    list_print(&list2);
 
-	delete_list_free(list1);
-	delete_list_free(list2);
-	printf("%s\n", ((Node *)list_begin(list1))->str);
+	delete_list(&list1);
+	delete_list(&list2);
+
 	return 0;
 }

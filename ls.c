@@ -97,7 +97,8 @@ int compare(_Node *p, _Node *q)
 void do_ls(const char *dir)
 {
 	DIR *pdir;
-	List *list = create_list();
+	List list;
+	create_list(&list, NULL);
 	struct dirent *pdirent;
 	pdir = opendir(dir);
 	if(pdir == NULL){
@@ -110,18 +111,18 @@ void do_ls(const char *dir)
 		//show_info(dir, pdirent->d_name);
 		DataNode *dn = (DataNode *)malloc(sizeof(DataNode));
 		dn->pdirent = pdirent;
-		list_push_back(list, (_Node *)dn);
+		list_push_back(&list, (_Node *)dn);
     }
 	//show_info
-	printf("total %d\n", list_size(list));
+	printf("total %d\n", list_size(&list));
 	list_sort(&list, compare);
-    DataNode *first = (DataNode *)list_begin(list);
-	DataNode *last = (DataNode *)list_end(list);
+    DataNode *first = (DataNode *)list_begin(&list);
+	DataNode *last = (DataNode *)list_end(&list);
 	while(first != last){
 		show_info(dir, first->pdirent->d_name);
-		first = (DataNode *)list_next(list, (_Node *)first);
+		first = (DataNode *)list_next(&list, (_Node *)first);
     }
-	delete_list_free(&list);
+	delete_list(&list);
 	
 	closedir(pdir);
 }
